@@ -4,17 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
-import android.support.design.widget.Snackbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-
 import com.tiago.fluxchallenge.dummy.DummyContent
 import kotlinx.android.synthetic.main.activity_pokemon_list.*
-import kotlinx.android.synthetic.main.pokemon_list_content.view.*
-
 import kotlinx.android.synthetic.main.pokemon_list.*
+import kotlinx.android.synthetic.main.pokemon_list_content.view.*
 
 /**
  * An activity representing a list of Pings. This activity
@@ -38,11 +35,6 @@ class PokemonListActivity : AppCompatActivity() {
 
 		setSupportActionBar(toolbar)
 		toolbar.title = title
-
-		fab.setOnClickListener { view ->
-			Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-					.setAction("Action", null).show()
-		}
 
 		if (pokemon_detail_container != null) {
 			// The detail container view will be present only in the
