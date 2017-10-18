@@ -1,10 +1,11 @@
-package com.tiago.fluxchallenge
+package com.tiago.fluxchallenge.screens.pokemondetails
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.tiago.fluxchallenge.R
 import com.tiago.fluxchallenge.dummy.DummyContent
 import kotlinx.android.synthetic.main.activity_pokemon_detail.*
 import kotlinx.android.synthetic.main.pokemon_detail.view.*

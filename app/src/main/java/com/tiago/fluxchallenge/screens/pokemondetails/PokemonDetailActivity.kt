@@ -1,9 +1,11 @@
-package com.tiago.fluxchallenge
+package com.tiago.fluxchallenge.screens.pokemondetails
 
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import com.tiago.fluxchallenge.R
+import com.tiago.fluxchallenge.screens.pokemonlist.PokemonListActivity
 import kotlinx.android.synthetic.main.activity_pokemon_detail.*
 
 /**

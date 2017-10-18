@@ -1,4 +1,4 @@
-package com.tiago.fluxchallenge
+package com.tiago.fluxchallenge.screens.pokemonlist
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,7 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.tiago.fluxchallenge.R
 import com.tiago.fluxchallenge.dummy.DummyContent
+import com.tiago.fluxchallenge.screens.pokemondetails.PokemonDetailActivity
+import com.tiago.fluxchallenge.screens.pokemondetails.PokemonDetailFragment
 import kotlinx.android.synthetic.main.activity_pokemon_list.*
 import kotlinx.android.synthetic.main.pokemon_list.*
 import kotlinx.android.synthetic.main.pokemon_list_content.view.*
