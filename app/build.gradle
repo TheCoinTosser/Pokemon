@@ -30,6 +30,7 @@ dependencies {
     implementation "com.android.support:support-v4:$supportVersion"
     implementation "com.android.support:recyclerview-v7:$supportVersion"
     implementation "com.android.support:design:$supportVersion"
+    implementation "com.android.support:cardview-v7:$supportVersion"
 
     ext.retrofitVersion = '2.3.0'
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
@@ -48,9 +49,11 @@ dependencies {
     debugCompile "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
     releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
 
+    ext.archBaseVersion = '1.0.0'
+    implementation "android.arch.lifecycle:runtime:$archBaseVersion"
+    implementation "android.arch.lifecycle:extensions:$archBaseVersion-alpha9-1"
+    annotationProcessor "android.arch.lifecycle:compiler:$archBaseVersion-alpha9-1"
+
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 }

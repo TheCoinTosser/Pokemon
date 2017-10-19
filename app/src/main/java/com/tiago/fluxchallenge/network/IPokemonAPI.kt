@@ -12,9 +12,9 @@ import retrofit2.http.Query
  */
 internal interface IPokemonAPI {
 
-	@GET("api/v2/pokemon")
+	@GET(".")
 	fun getPokemonResult(@Query("offset") offset: Int): Single<PokemonResult>
 
-	@GET("api/v2/pokemon/{pokemonId}")
+	@GET("{pokemonId}")
 	fun getPokemonDetails(@Path("pokemonId") pokemonId: Int): Single<PokemonDetails>
 }

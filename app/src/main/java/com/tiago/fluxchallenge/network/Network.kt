@@ -1,5 +1,7 @@
 package com.tiago.fluxchallenge.network
 
+import com.tiago.fluxchallenge.network.INetwork.Companion.IMAGE_URL_TEMPLATE
+import com.tiago.fluxchallenge.network.INetwork.Companion.POKEMON_BASE_URL
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -14,12 +16,11 @@ import retrofit2.converter.gson.GsonConverterFactory
  */
 object NetworkImpl : INetwork {
 
-	private val imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other-sprites/official-artwork/%d.png"
 	private val pokemonAPI: IPokemonAPI
 
 	init {
 		val retrofit = Retrofit.Builder()
-				.baseUrl("https://pokeapi.co/")
+				.baseUrl(POKEMON_BASE_URL)
 				.addConverterFactory(GsonConverterFactory.create())
 				.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
 				.build()
@@ -31,5 +32,5 @@ object NetworkImpl : INetwork {
 
 	override fun getPokemonDetails(pokemonId: Int) = pokemonAPI.getPokemonDetails(pokemonId)
 
-	override fun getImageUrl(pokemonId: Int) = String.format(imageUrl, pokemonId)
+	override fun getImageUrl(pokemonId: Int?) = String.format(IMAGE_URL_TEMPLATE, pokemonId)
 }

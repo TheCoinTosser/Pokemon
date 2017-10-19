@@ -30,4 +30,12 @@ class NetworkTests{
 		val pokemonDetails = NetworkImpl.getPokemonDetails(bulbasaurId).blockingGet()
 		assertNotNull(pokemonDetails)
 	}
+
+	@Test
+	@Throws(Exception::class)
+	fun testGetImageUrlFunction(){
+
+		val invalidImageUrl = NetworkImpl.getImageUrl(null)
+		assertNotNull(invalidImageUrl)
+	}
 }

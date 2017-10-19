@@ -9,9 +9,14 @@ import io.reactivex.Single
  */
 interface INetwork{
 
+	companion object {
+		const val POKEMON_BASE_URL = "https://pokeapi.co/api/v2/pokemon/"
+		const val IMAGE_URL_TEMPLATE = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other-sprites/official-artwork/%d.png"
+	}
+
 	fun getPokemonResult(offset: Int = 0): Single<PokemonResult>
 
 	fun getPokemonDetails(pokemonId: Int): Single<PokemonDetails>
 
-	fun getImageUrl(pokemonId: Int): String
+	fun getImageUrl(pokemonId: Int?): String
 }

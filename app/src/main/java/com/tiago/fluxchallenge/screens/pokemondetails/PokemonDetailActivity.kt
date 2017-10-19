@@ -1,6 +1,5 @@
 package com.tiago.fluxchallenge.screens.pokemondetails
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
@@ -37,8 +36,8 @@ class PokemonDetailActivity : AppCompatActivity() {
 			// Create the detail fragment and add it to the activity
 			// using a fragment transaction.
 			val arguments = Bundle()
-			arguments.putString(PokemonDetailFragment.ARG_ITEM_ID,
-					intent.getStringExtra(PokemonDetailFragment.ARG_ITEM_ID))
+			arguments.putString(PokemonDetailFragment.ITEM,
+					intent.getStringExtra(PokemonDetailFragment.ITEM))
 			val fragment = PokemonDetailFragment()
 			fragment.arguments = arguments
 			supportFragmentManager.beginTransaction()
@@ -50,13 +49,7 @@ class PokemonDetailActivity : AppCompatActivity() {
 	override fun onOptionsItemSelected(item: MenuItem) =
 			when (item.itemId) {
 				android.R.id.home -> {
-					// This ID represents the Home or Up button. In the case of this
-					// activity, the Up button is shown. For
-					// more details, see the Navigation pattern on Android Design:
-					//
-					// http://developer.android.com/design/patterns/navigation.html#up-vs-back
-
-					navigateUpTo(Intent(this, PokemonListActivity::class.java))
+					super.onBackPressed()
 					true
 				}
 				else -> super.onOptionsItemSelected(item)
