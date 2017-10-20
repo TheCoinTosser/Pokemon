@@ -27,10 +27,15 @@ fun <T> List<T>?.emptyFallback(): List<T> = this ?: listOf()
 
 fun TextView.setTextAndVisibility(@StringRes textId: Int,
 								  string: String? = null,
+								  int: Int? = null,
 								  long: Long? = null){
 
 	if(string != null){
 		setTextAndVisibility(context.getString(textId, string))
+	}
+
+	if(int != null){
+		setTextAndVisibility(context.getString(textId, int))
 	}
 
 	if(long != null){

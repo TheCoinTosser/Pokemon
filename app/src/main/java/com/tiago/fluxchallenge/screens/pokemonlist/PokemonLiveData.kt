@@ -49,7 +49,7 @@ class PokemonLiveData : LiveData<PokemonObservableData>() {
 					}
 
 					override fun onSuccess(pokemonResult: PokemonResult) {
-						
+
 						offset += IPokemonAPI.LIMIT_DEFAULT
 
 						val mutableList = pokemonObservableData?.results?.toMutableList() ?: mutableListOf()

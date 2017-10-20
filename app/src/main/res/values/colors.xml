@@ -5,4 +5,5 @@
     <color name="colorAccent">#FF4081</color>
     <color name="semitransparent">#DD222222</color>
     <color name="pokemon_title">#EEE</color>
+    <color name="error">#DD0000</color>
 </resources>

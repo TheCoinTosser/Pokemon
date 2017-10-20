@@ -3,4 +3,7 @@
     <string name="title_pokemon_detail">Pokemon Detail</string>
     <string name="failed_to_fetch_from_server">Failed to fetch data from server</string>
     <string name="no_items">No items</string>
+    <string name="height_format">Height: %s</string>
+    <string name="weight_format">Weight: %s</string>
+    <string name="failed_to_load_description">Failed to load description</string>
 </resources>

@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.tiago.fluxchallenge.R
+import com.tiago.fluxchallenge.loadImage
+import com.tiago.fluxchallenge.network.INetwork
+import com.tiago.fluxchallenge.network.NetworkImpl
 import com.tiago.fluxchallenge.screens.pokemonlist.PokemonListActivity
 import kotlinx.android.synthetic.main.activity_pokemon_detail.*
 
@@ -15,35 +18,35 @@ import kotlinx.android.synthetic.main.activity_pokemon_detail.*
  */
 class PokemonDetailActivity : AppCompatActivity() {
 
+	private val pokemonId by lazy{ intent.getIntExtra(PokemonDetailFragment.POKEMON_ID, PokemonDetailFragment.UNKNOWN_ID) }
+	private val pokemonName by lazy { intent.getStringExtra(PokemonDetailFragment.POKEMON_NAME) }
+	private val network: INetwork by lazy{ NetworkImpl }
+
 	override fun onCreate(savedInstanceState: Bundle?) {
+
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_pokemon_detail)
-		setSupportActionBar(detail_toolbar)
 
-		// Show the Up button in the action bar.
-		supportActionBar?.setDisplayHomeAsUpEnabled(true)
+		setSupportActionBar(toolbar)
+		supportActionBar?.let {
+			it.setDisplayHomeAsUpEnabled(true)
+			it.title = pokemonName
+		}
 
-		// savedInstanceState is non-null when there is fragment state
-		// saved from previous configurations of this activity
-		// (e.g. when rotating the screen from portrait to landscape).
-		// In this case, the fragment will automatically be re-added
-		// to its container so we don't need to manually add it.
-		// For more information, see the Fragments API guide at:
-		//
-		// http://developer.android.com/guide/components/fragments.html
-		//
 		if (savedInstanceState == null) {
-			// Create the detail fragment and add it to the activity
-			// using a fragment transaction.
+
 			val arguments = Bundle()
-			arguments.putString(PokemonDetailFragment.ITEM,
-					intent.getStringExtra(PokemonDetailFragment.ITEM))
+			arguments.putInt(PokemonDetailFragment.POKEMON_ID, pokemonId)
+
 			val fragment = PokemonDetailFragment()
 			fragment.arguments = arguments
-			supportFragmentManager.beginTransaction()
+			supportFragmentManager
+					.beginTransaction()
 					.add(R.id.pokemon_detail_container, fragment)
 					.commit()
 		}
+
+		imageViewHeader.loadImage(network.getImageUrl(pokemonId), R.drawable.pokeball)
 	}
 
 	override fun onOptionsItemSelected(item: MenuItem) =

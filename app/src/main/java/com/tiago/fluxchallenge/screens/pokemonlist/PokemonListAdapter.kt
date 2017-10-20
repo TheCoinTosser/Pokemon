@@ -30,10 +30,14 @@ class PokemonListAdapter(private val network: INetwork,
 		onClickListener = View.OnClickListener { view ->
 
 			val result = view.tag as Result
+			val pokemonId = result.extractPokemonId() ?: PokemonDetailFragment.UNKNOWN_ID
+			val pokemonName = result.name.capitalize()
 			if (twoPane) {
+
 				val fragment = PokemonDetailFragment().apply {
 					arguments = Bundle()
-					arguments.putParcelable(PokemonDetailFragment.ITEM, result)
+					arguments.putInt(PokemonDetailFragment.POKEMON_ID, pokemonId)
+					arguments.putString(PokemonDetailFragment.POKEMON_NAME, pokemonName)
 				}
 				parentActivity.supportFragmentManager
 						.beginTransaction()
@@ -42,9 +46,9 @@ class PokemonListAdapter(private val network: INetwork,
 			} else {
 
 				val intent = Intent(view.context, PokemonDetailActivity::class.java).apply {
-					putExtra(PokemonDetailFragment.ITEM, result)
+					putExtra(PokemonDetailFragment.POKEMON_ID, pokemonId)
+					putExtra(PokemonDetailFragment.POKEMON_NAME, pokemonName)
 				}
-
 				view.context.startActivity(intent)
 			}
 		}
