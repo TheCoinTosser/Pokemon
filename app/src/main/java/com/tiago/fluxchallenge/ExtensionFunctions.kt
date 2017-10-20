@@ -1,7 +1,12 @@
 package com.tiago.fluxchallenge
 
+import android.animation.AnimatorInflater
+import android.animation.AnimatorSet
+import android.content.Context
+import android.support.annotation.ColorRes
 import android.support.annotation.DrawableRes
 import android.support.annotation.StringRes
+import android.support.v4.content.ContextCompat
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -9,7 +14,9 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.tiago.fluxchallenge.glide.GlideApp
+import com.tiago.fluxchallenge.glide.PaletteBitmap
+import com.tiago.fluxchallenge.glide.PaletteBitmapsViewTarget
 
 /**
  * Created by tiago on 19/10/17.
@@ -24,6 +31,11 @@ fun View.hide(){ visibility = View.GONE }
 
 fun <T> Collection<T>?.isNullOrEmpty() = (this == null || isEmpty())
 fun <T> List<T>?.emptyFallback(): List<T> = this ?: listOf()
+
+fun Context.getColorCompat(@ColorRes colorResId: Int): Int{
+
+	return ContextCompat.getColor(this, colorResId)
+}
 
 fun TextView.setTextAndVisibility(@StringRes textId: Int,
 								  string: String? = null,
@@ -61,14 +73,13 @@ fun RecyclerView.addOnScrolledToEnd(onScrolledToEnd: () -> Unit){
 
 	this.addOnScrollListener(object: RecyclerView.OnScrollListener(){
 
+		private val VISIBLE_THRESHOLD = 5
+
 		private var loading = true
 		private var previousTotal = 0
-		private val visibleThreshold = 5
 
 		override fun onScrollStateChanged(recyclerView: RecyclerView,
 										  newState: Int) {
-
-			super.onScrollStateChanged(recyclerView, newState)
 
 			with(layoutManager as LinearLayoutManager){
 
@@ -82,7 +93,7 @@ fun RecyclerView.addOnScrolledToEnd(onScrolledToEnd: () -> Unit){
 					previousTotal = totalItemCount
 				}
 
-				if(!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)){
+				if(!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + VISIBLE_THRESHOLD)){
 
 					onScrolledToEnd()
 					loading = true
@@ -106,15 +117,39 @@ fun <T> MutableCollection<T>.removeAfter(action: (T) -> Unit){
 	}
 }
 
-fun ImageView.loadImage(imageUrl: String?,
-						@DrawableRes errorDrawableResId: Int? = null){
+fun Context.fadeIn(vararg views: View?){
 
-	val glideRequest = GlideApp.with(context).load(imageUrl)
+	val animators = views
+			.filterNotNull()
+			.map {
+				val animator = AnimatorInflater.loadAnimator(this, R.animator.fade_in)
+				animator.setTarget(it)
+				animator
+
+			}.toList()
+
+	val animatorSet = AnimatorSet()
+	animatorSet.playTogether(animators)
+	animatorSet.start()
+}
+
+fun ImageView.loadImage(imageUrl: String?,
+						@DrawableRes errorDrawableResId: Int? = null,
+						textView: TextView? = null){
+
+	textView?.let {
+		it.setBackgroundColor( context.getColorCompat(R.color.semitransparent) )
+		it.setTextColor( context.getColorCompat(R.color.pokemon_title) )
+	}
+
+	val glideRequest = GlideApp.with(context)
+			.`as`(PaletteBitmap::class.java)
+			.diskCacheStrategy(DiskCacheStrategy.DATA)
+			.load(imageUrl)
+
 	if(errorDrawableResId != null){
 		glideRequest.error(errorDrawableResId)
 	}
 
-	glideRequest.diskCacheStrategy(DiskCacheStrategy.DATA)
-	glideRequest.transition(DrawableTransitionOptions.withCrossFade())
-	glideRequest.into(this)
+	glideRequest.into(PaletteBitmapsViewTarget(this, textView))
 }

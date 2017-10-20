@@ -20,7 +20,6 @@ class PokemonListActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshLis
 	 * Whether or not the activity is in two-pane mode, i.e. running on a tablet
 	 */
 	private val twoPane by lazy { pokemon_detail_container != null }
-
 	private val viewModel by lazy { ViewModelProviders.of(this).get(ViewModelPokemonList::class.java) }
 
 

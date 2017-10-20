@@ -11,9 +11,10 @@
     app:cardElevation="5dp"
     app:cardUseCompatPadding="true">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/imageViewMain"
@@ -26,13 +27,12 @@
             android:id="@+id/textViewPokemonName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:background="@color/semitransparent"
             android:padding="@dimen/text_margin"
             android:textColor="@color/pokemon_title"
             android:textSize="30sp"
             tools:text="Pikachu"/>
 
-    </RelativeLayout>
+    </LinearLayout>
 
 </android.support.v7.widget.CardView>

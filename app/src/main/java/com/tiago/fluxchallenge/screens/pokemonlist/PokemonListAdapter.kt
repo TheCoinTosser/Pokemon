@@ -82,7 +82,9 @@ class PokemonListAdapter(private val network: INetwork,
 
 		with(viewHolderPokemon.itemView){
 
-			imageViewMain.loadImage(network.getImageUrl(result.extractPokemonId()), R.drawable.pokeball)
+			imageViewMain.loadImage(network.getImageUrl(result.extractPokemonId()),
+									R.drawable.pokeball,
+									textViewPokemonName)
 			textViewPokemonName.setTextAndVisibility(result.name.capitalize())
 
 			tag = result
