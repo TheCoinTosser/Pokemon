@@ -3,6 +3,6 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="semitransparent">#77222222</color>
+    <color name="semitransparent">#DD222222</color>
     <color name="pokemon_title">#EEE</color>
 </resources>

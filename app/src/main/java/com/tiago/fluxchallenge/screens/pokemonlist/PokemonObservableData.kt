@@ -1,21 +1,21 @@
 package com.tiago.fluxchallenge.screens.pokemonlist
 
-import com.tiago.fluxchallenge.network.models.PokemonResult
+import com.tiago.fluxchallenge.network.models.Result
 
 /**
  * Created by tiago on 19/10/17.
  */
-class PokemonObservableData private constructor(val pokemonResult: PokemonResult?,
+class PokemonObservableData private constructor(val results: List<Result>,
 												val error: Boolean) {
 
 	companion object {
 
-		fun buildItems(pokemonResult: PokemonResult): PokemonObservableData {
-			return PokemonObservableData(pokemonResult, false)
+		fun buildItems(results: List<Result>): PokemonObservableData {
+			return PokemonObservableData(results, false)
 		}
 
 		fun buildError(): PokemonObservableData {
-			return PokemonObservableData(PokemonResult(), true)
+			return PokemonObservableData(listOf(), true)
 		}
 	}
 }

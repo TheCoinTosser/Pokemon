@@ -9,7 +9,7 @@ import com.tiago.fluxchallenge.R
 
 /**
  * A fragment representing a single Pokemon detail screen.
- * This fragment is either contained in a [PokemonListActivity]
+ * This fragment is either contained in a [com.tiago.fluxchallenge.screens.pokemonlist.PokemonListActivity]
  * in two-pane mode (on tablets) or a [PokemonDetailActivity]
  * on handsets.
  */

@@ -2,9 +2,12 @@ package com.tiago.fluxchallenge.network
 
 import com.tiago.fluxchallenge.network.INetwork.Companion.IMAGE_URL_TEMPLATE
 import com.tiago.fluxchallenge.network.INetwork.Companion.POKEMON_BASE_URL
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
+
 
 /**
  * Created by tiago on 19/10/17.
@@ -19,8 +22,13 @@ object NetworkImpl : INetwork {
 	private val pokemonAPI: IPokemonAPI
 
 	init {
+		val okHttpClient = OkHttpClient.Builder()
+				.connectTimeout(30, TimeUnit.SECONDS)
+				.readTimeout(30, TimeUnit.SECONDS).build()
+
 		val retrofit = Retrofit.Builder()
 				.baseUrl(POKEMON_BASE_URL)
+				.client(okHttpClient)
 				.addConverterFactory(GsonConverterFactory.create())
 				.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
 				.build()

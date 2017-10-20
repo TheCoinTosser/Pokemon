@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.pokemon_list_item.view.*
  */
 class PokemonListAdapter(private val network: INetwork,
 						 private val parentActivity: AppCompatActivity,
-						 private val results: List<Result>,
+						 private val results: MutableList<Result>,
 						 private val twoPane: Boolean) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
 	private val onClickListener: View.OnClickListener
@@ -50,11 +50,16 @@ class PokemonListAdapter(private val network: INetwork,
 		}
 	}
 
-	fun populateData(results: List<Result>){
+	fun populateData(newResults: List<Result>){
 
-//		this.results.clear()
-//		this.results.addAll(results)
-		notifyDataSetChanged()
+		if(newResults.isNotEmpty()){
+
+			val firstNewPosition = this.results.size
+
+			this.results.clear()
+			this.results.addAll(newResults)
+			notifyItemRangeInserted(firstNewPosition, newResults.size)
+		}
 	}
 
 	override fun getItemCount() = results.size

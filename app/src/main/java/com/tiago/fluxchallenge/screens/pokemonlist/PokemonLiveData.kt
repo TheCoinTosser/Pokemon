@@ -1,6 +1,8 @@
 package com.tiago.fluxchallenge.screens.pokemonlist
 
 import android.arch.lifecycle.LiveData
+import com.tiago.fluxchallenge.emptyFallback
+import com.tiago.fluxchallenge.network.IPokemonAPI
 import com.tiago.fluxchallenge.network.NetworkImpl
 import com.tiago.fluxchallenge.network.models.PokemonResult
 import com.tiago.fluxchallenge.removeAfter
@@ -16,11 +18,12 @@ class PokemonLiveData : LiveData<PokemonObservableData>() {
 
 	private val disposables: MutableList<Disposable> = ArrayList()
 
-	private var lastSuccessfulPokemonObservableData: PokemonObservableData? = null
+	private var pokemonObservableData: PokemonObservableData? = null
+	private var offset = 0
 
 	fun fetch(forceNetwork: Boolean){
 
-		lastSuccessfulPokemonObservableData.let {
+		pokemonObservableData.let {
 
 			if(forceNetwork || it == null){
 				fetchFromNetwork()
@@ -35,7 +38,7 @@ class PokemonLiveData : LiveData<PokemonObservableData>() {
 
 	private fun fetchFromNetwork() {
 
-		NetworkImpl.getPokemonResult()
+		NetworkImpl.getPokemonResult(offset)
 				.subscribeOn(Schedulers.io())
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(object : SingleObserver<PokemonResult> {
@@ -46,10 +49,15 @@ class PokemonLiveData : LiveData<PokemonObservableData>() {
 					}
 
 					override fun onSuccess(pokemonResult: PokemonResult) {
+						
+						offset += IPokemonAPI.LIMIT_DEFAULT
 
-						PokemonObservableData.buildItems(pokemonResult).let {
+						val mutableList = pokemonObservableData?.results?.toMutableList() ?: mutableListOf()
+						mutableList.addAll(pokemonResult.results.emptyFallback())
 
-							lastSuccessfulPokemonObservableData = it
+						PokemonObservableData.buildItems(mutableList.toList()).let {
+
+							pokemonObservableData = it
 							deliver(it)
 						}
 					}

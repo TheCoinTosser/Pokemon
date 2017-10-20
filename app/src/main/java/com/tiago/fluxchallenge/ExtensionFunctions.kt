@@ -3,6 +3,8 @@ package com.tiago.fluxchallenge
 import android.support.annotation.DrawableRes
 import android.support.annotation.StringRes
 import android.support.v4.widget.SwipeRefreshLayout
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -14,6 +16,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
  */
 fun SwipeRefreshLayout.showLoadingIcon(){ this.isRefreshing = true }
 fun SwipeRefreshLayout.hideLoadingIcon(){ this.isRefreshing = false }
+fun SwipeRefreshLayout.removeListener(){ this.setOnRefreshListener(null) }
 
 fun View.showOrHide(conditionToShow: Boolean) = if(conditionToShow) show() else hide()
 fun View.show(){ visibility = View.VISIBLE }
@@ -44,6 +47,44 @@ fun TextView.setTextAndVisibility(text: String?){
 		show()
 		this.text = text
 	}
+}
+
+/**
+ * WARNING: This assumes the layout manager is a LinearLayoutManager
+ */
+fun RecyclerView.addOnScrolledToEnd(onScrolledToEnd: () -> Unit){
+
+	this.addOnScrollListener(object: RecyclerView.OnScrollListener(){
+
+		private var loading = true
+		private var previousTotal = 0
+		private val visibleThreshold = 5
+
+		override fun onScrollStateChanged(recyclerView: RecyclerView,
+										  newState: Int) {
+
+			super.onScrollStateChanged(recyclerView, newState)
+
+			with(layoutManager as LinearLayoutManager){
+
+				val visibleItemCount = childCount
+				val totalItemCount = itemCount
+				val firstVisibleItem = findFirstVisibleItemPosition()
+
+				if (loading && totalItemCount > previousTotal){
+
+					loading = false
+					previousTotal = totalItemCount
+				}
+
+				if(!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)){
+
+					onScrolledToEnd()
+					loading = true
+				}
+			}
+		}
+	})
 }
 
 /**

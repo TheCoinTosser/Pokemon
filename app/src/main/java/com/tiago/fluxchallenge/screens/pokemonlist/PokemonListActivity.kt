@@ -25,8 +25,7 @@ class PokemonListActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshLis
 
 
 	override fun onRefresh() {
-
-		viewModel.fetch(forceNetwork = true)
+		fetch(forceNetwork = true)
 	}
 
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,8 +36,10 @@ class PokemonListActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshLis
 		setSupportActionBar(toolbar)
 		toolbar.title = title
 
-		swipeRefreshLayout.setOnRefreshListener(this)
-		swipeRefreshLayout.showLoadingIcon()
+		recyclerView.addOnScrolledToEnd {
+
+			fetch(forceNetwork = true)
+		}
 
 		viewModel.observePokemonData(this, Observer {
 
@@ -48,29 +49,33 @@ class PokemonListActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshLis
 
 				if(it.error){
 					Snackbar.make(root, R.string.failed_to_fetch_from_server, Snackbar.LENGTH_LONG).show()
+					swipeRefreshLayout.setOnRefreshListener(this)
+
+				}else{
+					swipeRefreshLayout.removeListener()
 				}
 
-				val results = it.pokemonResult?.results
-				textViewNoItems.showOrHide(conditionToShow = results.isNullOrEmpty())
-				populateData(results.emptyFallback())
+				textViewNoItems.showOrHide(conditionToShow = it.results.isNullOrEmpty())
+				populateData(it.results.emptyFallback())
 			}
 		})
 
-		viewModel.fetch()
+		fetch()
 	}
 
 	private fun populateData(results: List<Result>){
 
-		recyclerView.adapter = PokemonListAdapter(NetworkImpl, this, results, twoPane)
+		if(recyclerView.adapter == null){
+			recyclerView.adapter = PokemonListAdapter(NetworkImpl, this, results.toMutableList(), twoPane)
 
-//		results.emptyFallback().let {
-//
-//			if(recyclerView.adapter == null){
-//				recyclerView.adapter = PokemonListAdapter(NetworkImpl, this, it, twoPane)
-//
-//			}else{
-//				(recyclerView.adapter as PokemonListAdapter).populateData(it)
-//			}
-//		}
+		}else{
+			(recyclerView.adapter as PokemonListAdapter).populateData(results)
+		}
+	}
+
+	private fun fetch(forceNetwork: Boolean = false){
+
+		viewModel.fetch(forceNetwork)
+		swipeRefreshLayout.showLoadingIcon()
 	}
 }

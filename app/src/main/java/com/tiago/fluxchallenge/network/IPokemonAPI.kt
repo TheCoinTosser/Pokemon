@@ -12,8 +12,13 @@ import retrofit2.http.Query
  */
 internal interface IPokemonAPI {
 
+	companion object {
+		const val LIMIT_DEFAULT = 20
+	}
+
 	@GET(".")
-	fun getPokemonResult(@Query("offset") offset: Int): Single<PokemonResult>
+	fun getPokemonResult(@Query("offset") offset: Int,
+						 @Query("limit") limit: Int = LIMIT_DEFAULT): Single<PokemonResult>
 
 	@GET("{pokemonId}")
 	fun getPokemonDetails(@Path("pokemonId") pokemonId: Int): Single<PokemonDetails>
