@@ -14,13 +14,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             android:id="@+id/imageViewMain"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:adjustViewBounds="true"
+            android:transitionName="@string/transition_image"
             tools:src="@drawable/pokeball"/>
 
         <TextView

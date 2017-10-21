@@ -2,6 +2,7 @@ package com.tiago.fluxchallenge.screens.pokemonlist
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.ActivityOptionsCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -49,7 +50,11 @@ class PokemonListAdapter(private val network: INetwork,
 					putExtra(PokemonDetailFragment.POKEMON_ID, pokemonId)
 					putExtra(PokemonDetailFragment.POKEMON_NAME, pokemonName)
 				}
-				view.context.startActivity(intent)
+
+				val options = ActivityOptionsCompat.makeSceneTransitionAnimation(parentActivity,
+																				 view.imageViewMain,
+																				 view.context.getString(R.string.transition_image))
+				view.context.startActivity(intent, options.toBundle())
 			}
 		}
 	}

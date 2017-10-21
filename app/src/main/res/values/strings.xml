@@ -6,4 +6,5 @@
     <string name="height_format">Height: %s</string>
     <string name="weight_format">Weight: %s</string>
     <string name="failed_to_load_description">Failed to load description</string>
+    <string name="transition_image">Transition Image</string>
 </resources>
