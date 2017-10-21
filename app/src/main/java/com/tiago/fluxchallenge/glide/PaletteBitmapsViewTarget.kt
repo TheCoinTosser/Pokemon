@@ -6,7 +6,7 @@ import com.bumptech.glide.request.target.ImageViewTarget
 import com.bumptech.glide.request.transition.Transition
 import com.tiago.fluxchallenge.R
 import com.tiago.fluxchallenge.fadeIn
-import com.tiago.fluxchallenge.getColorCompat
+import com.tiago.fluxchallenge.extensions.getColorCompat
 
 /**
  * Created by tiago on 20/10/17.

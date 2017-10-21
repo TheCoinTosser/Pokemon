@@ -1,4 +1,4 @@
-package com.tiago.fluxchallenge
+package com.tiago.fluxchallenge.extensions
 
 import android.animation.AnimatorInflater
 import android.animation.AnimatorSet
@@ -14,12 +14,13 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.tiago.fluxchallenge.R
 import com.tiago.fluxchallenge.glide.GlideApp
 import com.tiago.fluxchallenge.glide.PaletteBitmap
 import com.tiago.fluxchallenge.glide.PaletteBitmapsViewTarget
 
 /**
- * Created by tiago on 19/10/17.
+ * Created by tiago on 21/10/17.
  */
 fun SwipeRefreshLayout.showLoadingIcon(){ this.isRefreshing = true }
 fun SwipeRefreshLayout.hideLoadingIcon(){ this.isRefreshing = false }
@@ -31,9 +32,6 @@ fun View.show(){ visibility = View.VISIBLE }
 fun View.hide(){ visibility = View.GONE }
 
 fun <T : RecyclerView.ViewHolder> RecyclerView.Adapter<T>.isEmpty() = (itemCount == 0)
-
-fun <T> Collection<T>?.isNullOrEmpty() = (this == null || isEmpty())
-fun <T> List<T>?.emptyFallback(): List<T> = this ?: listOf()
 
 fun Context.getColorCompat(@ColorRes colorResId: Int): Int{
 
@@ -104,20 +102,6 @@ fun RecyclerView.addOnScrolledToEnd(onScrolledToEnd: () -> Unit){
 			}
 		}
 	})
-}
-
-/**
- * This allows us to loop through a mutable collection, perform an operation on each item, and then
- * safely remove it from the collection
- */
-fun <T> MutableCollection<T>.removeAfter(action: (T) -> Unit){
-
-	val iter = this.iterator()
-	while (iter.hasNext()) {
-		val item = iter.next()
-		action(item)
-		iter.remove()
-	}
 }
 
 fun Context.fadeIn(vararg views: View?){

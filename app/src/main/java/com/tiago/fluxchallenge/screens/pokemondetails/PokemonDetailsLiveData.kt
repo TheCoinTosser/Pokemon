@@ -1,9 +1,9 @@
 package com.tiago.fluxchallenge.screens.pokemondetails
 
 import android.arch.lifecycle.LiveData
+import com.tiago.fluxchallenge.extensions.removeAfter
 import com.tiago.fluxchallenge.network.NetworkImpl
 import com.tiago.fluxchallenge.network.models.PokemonDetails
-import com.tiago.fluxchallenge.removeAfter
 import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable

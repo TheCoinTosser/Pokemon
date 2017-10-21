@@ -8,8 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.tiago.fluxchallenge.R
-import com.tiago.fluxchallenge.setTextAndVisibility
-import com.tiago.fluxchallenge.showOrHide
+import com.tiago.fluxchallenge.extensions.setTextAndVisibility
+import com.tiago.fluxchallenge.extensions.showOrHide
 import kotlinx.android.synthetic.main.pokemon_detail.*
 
 /**

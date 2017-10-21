@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.tiago.fluxchallenge.R
-import com.tiago.fluxchallenge.loadImage
+import com.tiago.fluxchallenge.extensions.loadImage
 import com.tiago.fluxchallenge.network.INetwork
 import com.tiago.fluxchallenge.network.NetworkImpl
 import com.tiago.fluxchallenge.screens.pokemonlist.PokemonListActivity

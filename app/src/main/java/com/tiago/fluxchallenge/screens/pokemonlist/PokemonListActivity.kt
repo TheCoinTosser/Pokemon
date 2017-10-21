@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
 import com.tiago.fluxchallenge.*
+import com.tiago.fluxchallenge.extensions.*
 import com.tiago.fluxchallenge.network.NetworkImpl
 import com.tiago.fluxchallenge.network.models.Result
 import kotlinx.android.synthetic.main.activity_pokemon_list.*
