@@ -4,6 +4,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.request.target.ImageViewTarget
 import com.bumptech.glide.request.transition.Transition
+import com.tiago.fluxchallenge.extensions.animateToTextColor
+import com.tiago.fluxchallenge.extensions.animateToBackgroundColor
 
 /**
  * Created by tiago on 20/10/17.
@@ -20,11 +22,11 @@ class PaletteBitmapsViewTarget(private val imageView: ImageView,
 				imageView.setImageBitmap(it.bitmap)
 
 				it.palette.lightMutedSwatch?.rgb?.let {
-					textView.setBackgroundColor(it)
+					textView.animateToBackgroundColor(it)
 				}
 
 				it.palette.lightMutedSwatch?.bodyTextColor?.let {
-					textView.setTextColor(it)
+					textView.animateToTextColor(it)
 				}
 			}
 		}

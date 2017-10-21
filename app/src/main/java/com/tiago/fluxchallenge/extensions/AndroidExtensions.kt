@@ -1,6 +1,10 @@
 package com.tiago.fluxchallenge.extensions
 
+import android.animation.ArgbEvaluator
+import android.animation.ValueAnimator
 import android.content.Context
+import android.graphics.drawable.ColorDrawable
+import android.support.annotation.ColorInt
 import android.support.annotation.ColorRes
 import android.support.annotation.DrawableRes
 import android.support.annotation.StringRes
@@ -140,4 +144,41 @@ fun ImageView.loadImageWithPalette(imageUrl: String?,
 	}
 
 	glideRequest.into(PaletteBitmapsViewTarget(this, textView))
+}
+
+fun View.animateToBackgroundColor(@ColorInt colorInt: Int){
+
+	background.let {
+
+		if(it is ColorDrawable){
+
+			animateColor(
+					it.color,
+					colorInt,
+					f = { interpolatedColor -> setBackgroundColor(interpolatedColor) }
+			)
+		}
+	}
+}
+
+fun TextView.animateToTextColor(@ColorInt colorInt: Int){
+
+	animateColor(
+			currentTextColor,
+			colorInt,
+			f = { interpolatedColor -> setTextColor(interpolatedColor) }
+	)
+}
+
+private fun animateColor(@ColorInt currentRGBColor: Int,
+						 @ColorInt targetRGBColor: Int,
+						 f: (Int) -> Unit){
+
+	val animator = ValueAnimator()
+	animator.setIntValues(currentRGBColor, targetRGBColor)
+	animator.setEvaluator(ArgbEvaluator())
+	animator.addUpdateListener {
+		valueAnimator -> f(valueAnimator.animatedValue as Int)
+	}
+	animator.start()
 }
