@@ -35,6 +35,8 @@ class PokemonListActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshLis
 		setSupportActionBar(toolbar)
 		toolbar.title = title
 
+		swipeRefreshLayout.setOnRefreshListener(this)
+
 		recyclerView.addOnScrolledToEnd {
 
 			fetch(forceNetwork = true)
@@ -48,14 +50,14 @@ class PokemonListActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshLis
 
 				if(it.error){
 					Snackbar.make(root, R.string.failed_to_fetch_from_server, Snackbar.LENGTH_LONG).show()
-					swipeRefreshLayout.setOnRefreshListener(this)
+					swipeRefreshLayout.enable()
 
 				}else{
-					swipeRefreshLayout.removeListener()
+					swipeRefreshLayout.disable()
 				}
 
-				textViewNoItems.showOrHide(conditionToShow = it.results.isNullOrEmpty())
 				populateData(it.results.emptyFallback())
+				textViewNoItems.showOrHide(conditionToShow = recyclerView.adapter.isEmpty())
 			}
 		})
 

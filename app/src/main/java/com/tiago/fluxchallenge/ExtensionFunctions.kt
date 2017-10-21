@@ -23,11 +23,14 @@ import com.tiago.fluxchallenge.glide.PaletteBitmapsViewTarget
  */
 fun SwipeRefreshLayout.showLoadingIcon(){ this.isRefreshing = true }
 fun SwipeRefreshLayout.hideLoadingIcon(){ this.isRefreshing = false }
-fun SwipeRefreshLayout.removeListener(){ this.setOnRefreshListener(null) }
+fun SwipeRefreshLayout.enable(){ this.isEnabled = true }
+fun SwipeRefreshLayout.disable(){ this.isEnabled = false }
 
 fun View.showOrHide(conditionToShow: Boolean) = if(conditionToShow) show() else hide()
 fun View.show(){ visibility = View.VISIBLE }
 fun View.hide(){ visibility = View.GONE }
+
+fun <T : RecyclerView.ViewHolder> RecyclerView.Adapter<T>.isEmpty() = (itemCount == 0)
 
 fun <T> Collection<T>?.isNullOrEmpty() = (this == null || isEmpty())
 fun <T> List<T>?.emptyFallback(): List<T> = this ?: listOf()
