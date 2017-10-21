@@ -47,9 +47,11 @@ class PokemonDetailsLiveData : LiveData<PokemonDetailsObservableData>() {
 
 					override fun onSuccess(pokemonDetails: PokemonDetails) {
 
-						val detailsData = PokemonDetailsObservableData.buildItems(pokemonDetails)
-						pokemonDetailsObservableData = detailsData
-						deliver(detailsData)
+						PokemonDetailsObservableData.buildItems(pokemonDetails).let {
+
+							pokemonDetailsObservableData = it
+							deliver(it)
+						}
 					}
 
 					override fun onError(e: Throwable) {

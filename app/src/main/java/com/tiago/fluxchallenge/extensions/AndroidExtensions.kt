@@ -1,7 +1,5 @@
 package com.tiago.fluxchallenge.extensions
 
-import android.animation.AnimatorInflater
-import android.animation.AnimatorSet
 import android.content.Context
 import android.support.annotation.ColorRes
 import android.support.annotation.DrawableRes
@@ -14,7 +12,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.tiago.fluxchallenge.R
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.tiago.fluxchallenge.glide.GlideApp
 import com.tiago.fluxchallenge.glide.PaletteBitmap
 import com.tiago.fluxchallenge.glide.PaletteBitmapsViewTarget
@@ -104,30 +102,33 @@ fun RecyclerView.addOnScrolledToEnd(onScrolledToEnd: () -> Unit){
 	})
 }
 
-fun Context.fadeIn(vararg views: View?){
-
-	val animators = views
-			.filterNotNull()
-			.map {
-				val animator = AnimatorInflater.loadAnimator(this, R.animator.fade_in)
-				animator.setTarget(it)
-				animator
-
-			}.toList()
-
-	val animatorSet = AnimatorSet()
-	animatorSet.playTogether(animators)
-	animatorSet.start()
-}
-
 fun ImageView.loadImage(imageUrl: String?,
 						@DrawableRes errorDrawableResId: Int? = null,
-						textView: TextView? = null){
+						animate: Boolean = false){
 
-	textView?.let {
-		it.setBackgroundColor( context.getColorCompat(R.color.semitransparent) )
-		it.setTextColor( context.getColorCompat(R.color.pokemon_title) )
+	val glideRequest = GlideApp.with(context).load(imageUrl)
+
+	if(animate){
+		glideRequest.transition(DrawableTransitionOptions.withCrossFade())
 	}
+
+	glideRequest.diskCacheStrategy(DiskCacheStrategy.DATA)
+
+	if(errorDrawableResId != null){
+		glideRequest.error(errorDrawableResId)
+	}
+
+	glideRequest.into(this)
+}
+
+fun ImageView.loadImageWithPalette(imageUrl: String?,
+								   @DrawableRes errorDrawableResId: Int? = null,
+								   textView: TextView,
+								   @ColorRes textViewBackgroundColorIdFallback: Int,
+								   @ColorRes textViewTitleColorIdFallback: Int){
+
+	textView.setBackgroundColor( context.getColorCompat(textViewBackgroundColorIdFallback) )
+	textView.setTextColor( context.getColorCompat(textViewTitleColorIdFallback) )
 
 	val glideRequest = GlideApp.with(context)
 			.`as`(PaletteBitmap::class.java)

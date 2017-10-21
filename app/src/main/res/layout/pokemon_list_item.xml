@@ -29,7 +29,7 @@
             android:id="@+id/textViewPokemonName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/semitransparent"
+            android:background="@color/semi_transparent"
             android:padding="@dimen/text_margin"
             android:textColor="@color/pokemon_title"
             android:textSize="30sp"

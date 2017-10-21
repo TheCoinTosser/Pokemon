@@ -9,12 +9,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.tiago.fluxchallenge.R
-import com.tiago.fluxchallenge.extensions.loadImage
+import com.tiago.fluxchallenge.extensions.loadImageWithPalette
+import com.tiago.fluxchallenge.extensions.setTextAndVisibility
 import com.tiago.fluxchallenge.network.INetwork
 import com.tiago.fluxchallenge.network.models.Result
 import com.tiago.fluxchallenge.screens.pokemondetails.PokemonDetailActivity
 import com.tiago.fluxchallenge.screens.pokemondetails.PokemonDetailFragment
-import com.tiago.fluxchallenge.extensions.setTextAndVisibility
 import kotlinx.android.synthetic.main.pokemon_list_item.view.*
 
 /**
@@ -87,9 +87,13 @@ class PokemonListAdapter(private val network: INetwork,
 
 		with(viewHolderPokemon.itemView){
 
-			imageViewMain.loadImage(network.getImageUrl(result.extractPokemonId()),
-									R.drawable.pokeball,
-									textViewPokemonName)
+			imageViewMain.loadImageWithPalette(
+					imageUrl = network.getImageUrl(result.extractPokemonId()),
+					errorDrawableResId = R.drawable.pokeball,
+					textView = textViewPokemonName,
+					textViewBackgroundColorIdFallback = R.color.semi_transparent,
+					textViewTitleColorIdFallback = R.color.pokemon_title
+			)
 			textViewPokemonName.setTextAndVisibility(result.name.capitalize())
 
 			tag = result

@@ -3,7 +3,7 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="semitransparent">#DDCCCCCC</color>
+    <color name="semi_transparent">#DDCCCCCC</color>
     <color name="pokemon_title">#555</color>
     <color name="error">#DD0000</color>
 </resources>
