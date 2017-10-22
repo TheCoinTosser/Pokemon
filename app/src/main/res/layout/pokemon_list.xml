@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.RecyclerView android:id="@+id/pokemon_list"
-                                        android:name="com.tiago.fluxchallenge.PokemonListFragment"
-                                        xmlns:android="http://schemas.android.com/apk/res/android"
-                                        xmlns:app="http://schemas.android.com/apk/res-auto"
-                                        xmlns:tools="http://schemas.android.com/tools"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:layout_marginLeft="16dp"
-                                        android:layout_marginRight="16dp"
-                                        app:layoutManager="LinearLayoutManager"
-                                        tools:context="com.tiago.fluxchallenge.PokemonListActivity"
-                                        tools:listitem="@layout/pokemon_list_content"/>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="@dimen/margin_normal"
+        android:layout_marginLeft="@dimen/margin_normal"
+        android:layout_marginRight="@dimen/margin_normal"
+        android:layout_marginStart="@dimen/margin_normal">
+
+        <include layout="@layout/pokemon_list_common"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <include layout="@layout/no_item"/>
+
+</RelativeLayout>

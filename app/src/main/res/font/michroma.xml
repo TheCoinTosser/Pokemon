@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <font
+        android:font="@font/michroma_regular"
+        android:fontStyle="normal"
+        android:fontWeight="@integer/font_weight"
+        app:font="@font/michroma_regular"
+        app:fontStyle="normal"
+        app:fontWeight="@integer/font_weight"/>
+
+    <font
+        android:font="@font/michroma_regular"
+        android:fontStyle="italic"
+        android:fontWeight="@integer/font_weight"
+        app:font="@font/michroma_regular"
+        app:fontStyle="italic"
+        app:fontWeight="@integer/font_weight"/>
+
+</font-family>
