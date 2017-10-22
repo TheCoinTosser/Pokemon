@@ -46,10 +46,6 @@ dependencies {
     annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
     kapt "com.github.bumptech.glide:compiler:$glideVersion"
 
-    ext.leakCanaryVersion = '1.5.4'
-    debugCompile "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
-    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
-
     ext.archBaseVersion = '1.0.0'
     implementation "android.arch.lifecycle:runtime:$archBaseVersion"
     implementation "android.arch.lifecycle:extensions:$archBaseVersion-alpha9-1"
