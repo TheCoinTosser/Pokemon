@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.tiago.fluxchallenge.R
+import com.tiago.fluxchallenge.extensions.inchesToCentimeters
+import com.tiago.fluxchallenge.extensions.poundsToKilos
 import com.tiago.fluxchallenge.extensions.setTextAndVisibility
 import com.tiago.fluxchallenge.extensions.showOrHide
 import kotlinx.android.synthetic.main.pokemon_detail.*
@@ -37,8 +39,23 @@ class PokemonDetailFragment : Fragment() {
 			it?.let {
 
 				textViewError.showOrHide(conditionToShow = it.error)
-				textViewHeight.setTextAndVisibility(R.string.height_format, int = it.pokemonDetails?.height)
-				textViewWeight.setTextAndVisibility(R.string.weight_format, int = it.pokemonDetails?.weight)
+				textViewHeight.setTextAndVisibility(R.string.height_format, it.pokemonDetails?.height?.inchesToCentimeters())
+				textViewWeight.setTextAndVisibility(R.string.weight_format, it.pokemonDetails?.weight?.poundsToKilos())
+				textViewBaseExperience.setTextAndVisibility(R.string.base_experience_format, it.pokemonDetails?.baseExperience)
+
+				val typesFormatted = it.pokemonDetails
+						?.types
+						?.mapNotNull { typeItem -> typeItem.type?.name }
+						?.toList()
+						?.joinToString()
+				textViewTypes.setTextAndVisibility(R.string.types_format, typesFormatted)
+
+				val abilitiesFormatted = it.pokemonDetails
+						?.abilities
+						?.mapNotNull { abilityItem -> abilityItem.ability?.name }
+						?.toList()
+						?.joinToString()
+				textViewAbilities.setTextAndVisibility(R.string.abilities_format, abilitiesFormatted)
 			}
 		})
 

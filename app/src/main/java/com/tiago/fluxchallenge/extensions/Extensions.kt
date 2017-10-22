@@ -18,3 +18,6 @@ fun <T> MutableCollection<T>.removeAfter(action: (T) -> Unit){
 		iter.remove()
 	}
 }
+
+fun Float.poundsToKilos() = (this * 0.453592).toFloat()
+fun Float.inchesToCentimeters() = (this * 2.54).toFloat()

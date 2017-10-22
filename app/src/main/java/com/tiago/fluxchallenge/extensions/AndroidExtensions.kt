@@ -41,21 +41,27 @@ fun Context.getColorCompat(@ColorRes colorResId: Int): Int{
 }
 
 fun TextView.setTextAndVisibility(@StringRes textId: Int,
-								  string: String? = null,
-								  int: Int? = null,
-								  long: Long? = null){
+								  string: String? = null){
 
-	if(string != null){
-		setTextAndVisibility(context.getString(textId, string))
-	}
+	setTextAndVisibility( context.getStringOrNull(textId, string) )
+}
 
-	if(int != null){
-		setTextAndVisibility(context.getString(textId, int))
-	}
+fun TextView.setTextAndVisibility(@StringRes textId: Int,
+								  int: Int? = null){
 
-	if(long != null){
-		setTextAndVisibility(context.getString(textId, long))
-	}
+	setTextAndVisibility( context.getStringOrNull(textId, int) )
+}
+
+fun TextView.setTextAndVisibility(@StringRes textId: Int,
+								  float: Float? = null){
+
+	setTextAndVisibility( context.getStringOrNull(textId, float) )
+}
+
+private fun Context.getStringOrNull(@StringRes textId: Int,
+									stringIntLongFloat: Any? = null) = when(stringIntLongFloat){
+	null -> null
+	else -> getString(textId, stringIntLongFloat)
 }
 
 fun TextView.setTextAndVisibility(text: String?){

@@ -9,7 +9,7 @@ import com.tiago.fluxchallenge.network.INetwork.Companion.POKEMON_BASE_URL
  *
  * Unfortunately the @Parcelize annotation from Kotlin does not work on Jelly Bean yet... =(
  */
-data class Result(val url: String,
+data class Result(private val url: String,
 				  val name: String): Parcelable{
 
 	fun extractPokemonId() = url.removePrefix(POKEMON_BASE_URL).removeSuffix("/").toIntOrNull()

@@ -20,7 +20,7 @@ class NetworkTests{
 
 		val pokemonResultBatch2 = NetworkImpl.getPokemonResult(20).blockingGet()
 		assertNotNull(pokemonResultBatch2)
-		assertTrue( pokemonResultBatch2.next.contains("offset=40") )
+		assertTrue( pokemonResultBatch2.next!!.contains("offset=40") )
 	}
 
 	@Test
