@@ -27,7 +27,7 @@ class PokemonDetailFragment : Fragment() {
 	}
 
 	private val pokemonId by lazy { arguments.getInt(POKEMON_ID) }
-	private val viewModel by lazy { ViewModelProviders.of(activity).get(ViewModelPokemonDetails::class.java) }
+	private val viewModel by lazy { ViewModelProviders.of(this).get(ViewModelPokemonDetails::class.java) }
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
