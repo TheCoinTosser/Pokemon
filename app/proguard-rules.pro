@@ -14,7 +14,7 @@
 
 # Uncomment this to preserve the line number information for
 # debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
+-keepattributes SourceFile,LineNumberTable
 
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
@@ -27,3 +27,22 @@
   **[] $VALUES;
   public *;
 }
+
+
+# Taken from: http://square.github.io/retrofit/
+-dontnote retrofit2.Platform
+-dontwarn retrofit2.Platform$Java8
+-keepattributes Signature
+-keepattributes Exceptions
+
+
+-dontwarn okio.**
+
+
+# This takes care of the famous "can't find referenced class javax.annotation.Nullable"
+-dontwarn javax.annotation.**
+-dontwarn com.google.common.collect.**
+
+
+# Keep models
+-keep public class com.tiago.fluxchallenge.network.models.**{ *; }
