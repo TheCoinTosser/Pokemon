@@ -13,7 +13,10 @@ import retrofit2.http.Query
 internal interface IPokemonAPI {
 
 	companion object {
+		const val TIMEOUT_IN_SECONDS = 30L
 		const val LIMIT_DEFAULT = 20
+		const val POKEMON_BASE_URL = "https://pokeapi.co/api/v2/pokemon/"
+		const val IMAGE_URL_TEMPLATE = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other-sprites/official-artwork/%d.png"
 	}
 
 	@GET(".")

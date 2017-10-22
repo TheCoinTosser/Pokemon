@@ -2,7 +2,7 @@ package com.tiago.fluxchallenge.network.models
 
 import android.os.Parcel
 import android.os.Parcelable
-import com.tiago.fluxchallenge.network.INetwork.Companion.POKEMON_BASE_URL
+import com.tiago.fluxchallenge.network.IPokemonAPI.Companion.POKEMON_BASE_URL
 
 /**
  * Created by tiago on 19/10/17.
