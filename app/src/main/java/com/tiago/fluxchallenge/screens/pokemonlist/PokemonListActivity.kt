@@ -6,8 +6,9 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
-import com.tiago.fluxchallenge.*
+import com.tiago.fluxchallenge.R
 import com.tiago.fluxchallenge.extensions.*
+import com.tiago.fluxchallenge.network.INetwork
 import com.tiago.fluxchallenge.network.NetworkImpl
 import com.tiago.fluxchallenge.network.models.Result
 import kotlinx.android.synthetic.main.activity_pokemon_list.*
@@ -22,6 +23,7 @@ class PokemonListActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshLis
 	 */
 	private val twoPane by lazy { pokemon_detail_container != null }
 	private val viewModel by lazy { ViewModelProviders.of(this).get(ViewModelPokemonList::class.java) }
+	private val network: INetwork by lazy { NetworkImpl }
 
 
 	override fun onRefresh() {
@@ -68,7 +70,7 @@ class PokemonListActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshLis
 	private fun populateData(results: List<Result>){
 
 		if(recyclerView.adapter == null){
-			recyclerView.adapter = PokemonListAdapter(NetworkImpl, this, results.toMutableList(), twoPane)
+			recyclerView.adapter = PokemonListAdapter(network, this, results.toMutableList(), twoPane)
 
 		}else{
 			(recyclerView.adapter as PokemonListAdapter).populateData(results)

@@ -3,6 +3,7 @@ package com.tiago.fluxchallenge.screens.pokemonlist
 import android.arch.lifecycle.LiveData
 import com.tiago.fluxchallenge.extensions.emptyFallback
 import com.tiago.fluxchallenge.extensions.removeAfter
+import com.tiago.fluxchallenge.network.INetwork
 import com.tiago.fluxchallenge.network.IPokemonAPI
 import com.tiago.fluxchallenge.network.NetworkImpl
 import com.tiago.fluxchallenge.network.models.PokemonResult
@@ -17,6 +18,7 @@ import io.reactivex.schedulers.Schedulers
 class PokemonLiveData : LiveData<PokemonObservableData>() {
 
 	private val disposables: MutableList<Disposable> = ArrayList()
+	private val network: INetwork by lazy { NetworkImpl }
 
 	private var pokemonObservableData: PokemonObservableData? = null
 	private var offset = 0
@@ -38,7 +40,7 @@ class PokemonLiveData : LiveData<PokemonObservableData>() {
 
 	private fun fetchFromNetwork() {
 
-		NetworkImpl.getPokemonResult(offset)
+		network.getPokemonResult(offset)
 				.subscribeOn(Schedulers.io())
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(object : SingleObserver<PokemonResult> {
