@@ -8,6 +8,7 @@
     <string name="types_format">Types: %s</string>
     <string name="abilities_format">Abilities: %s</string>
 
+    <string name="loading">Loading…</string>
     <string name="no_items">No items</string>
 
     <string name="failed_to_fetch_from_server">Failed to fetch data from server</string>

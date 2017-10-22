@@ -8,10 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.tiago.fluxchallenge.R
-import com.tiago.fluxchallenge.extensions.inchesToCentimeters
-import com.tiago.fluxchallenge.extensions.poundsToKilos
-import com.tiago.fluxchallenge.extensions.setTextAndVisibility
-import com.tiago.fluxchallenge.extensions.showOrHide
+import com.tiago.fluxchallenge.extensions.*
+import kotlinx.android.synthetic.main.loading_pokeball.*
 import kotlinx.android.synthetic.main.pokemon_detail.*
 
 /**
@@ -37,6 +35,8 @@ class PokemonDetailFragment : Fragment() {
 		viewModel.observePokemonData(this, Observer {
 
 			it?.let {
+
+				loadingPokeball.hide()
 
 				textViewError.showOrHide(conditionToShow = it.error)
 				textViewHeight.setTextAndVisibility(R.string.height_format, it.pokemonDetails?.height?.inchesToCentimeters())

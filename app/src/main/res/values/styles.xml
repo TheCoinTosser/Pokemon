@@ -30,4 +30,8 @@
         <item name="android:padding">16dp</item>
     </style>
 
+    <style name="PokeballProgressBarStyle" parent="@android:style/Widget.ProgressBar">
+        <item name="android:indeterminateDrawable">@drawable/pokeball_rotate</item>
+    </style>
+
 </resources>

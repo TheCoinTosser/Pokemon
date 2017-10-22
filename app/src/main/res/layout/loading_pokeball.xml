@@ -1,0 +1,21 @@
+<LinearLayout
+    android:id="@+id/loadingPokeball"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_normal"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ProgressBar
+        style="@style/PokeballProgressBarStyle"
+        android:layout_width="@dimen/pokeball_size"
+        android:layout_height="@dimen/pokeball_size"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/loading"
+        android:textColor="@color/pokeball"/>
+
+</LinearLayout>
