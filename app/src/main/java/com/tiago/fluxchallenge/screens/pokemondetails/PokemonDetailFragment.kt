@@ -58,8 +58,6 @@ class PokemonDetailFragment : Fragment() {
 				textViewAbilities.setTextAndVisibility(R.string.abilities_format, abilitiesFormatted)
 			}
 		})
-
-		viewModel.fetch(pokemonId)
 	}
 
 	override fun onCreateView(inflater: LayoutInflater,
@@ -67,5 +65,11 @@ class PokemonDetailFragment : Fragment() {
 							  savedInstanceState: Bundle?): View? {
 
 		return inflater.inflate(R.layout.pokemon_detail, container, false)
+	}
+
+	override fun onResume() {
+		super.onResume()
+
+		viewModel.fetch(pokemonId)
 	}
 }

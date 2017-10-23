@@ -28,7 +28,7 @@
             android:name=".screens.pokemondetails.PokemonDetailActivity"
             android:label="@string/title_pokemon_detail"
             android:parentActivityName=".screens.pokemonlist.PokemonListActivity"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:theme="@style/DetailsActivity"
             android:screenOrientation="sensor">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
